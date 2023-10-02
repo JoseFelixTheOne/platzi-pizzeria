@@ -1,8 +1,8 @@
 package com.platzi.pizza.persistence.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.persistence.Column;
@@ -22,7 +22,7 @@ public class PizzaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_pizza", nullable = false)
     private Integer idPizza;
-    @Column(nullable = false, length = 30, updatable = true)
+    @Column(nullable = false, length = 30, unique = true)
     private String name;
     @Column(nullable = false, length = 150)
     private String description;
