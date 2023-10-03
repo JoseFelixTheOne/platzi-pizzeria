@@ -1,17 +1,13 @@
 package com.platzi.pizza.persistence.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Entity
 @Table(name = "pizza_order")
@@ -24,7 +20,7 @@ public class OrderEntity {
     @Column(name = "id_order", nullable = false)
     private Integer idOrder;
     @Column(name = "id_customer", nullable = false, length = 15)
-    private Integer idCustomer;
+    private String idCustomer;
     @Column(nullable = false, columnDefinition = "DATETIME")
     private LocalDateTime date;
     @Column(nullable = false, columnDefinition = "DECIMAL(6,2)")
@@ -33,4 +29,11 @@ public class OrderEntity {
     private String method;
     @Column(name = "additional_notes", length = 200)
     private String additionalNotes;
+
+    @OneToOne
+    @JoinColumn(name = "id_customer", referencedColumnName = "id_customer", insertable = false, updatable = false)
+    private CustomerEntity customer;
+
+    @OneToMany(mappedBy = "order")
+    private List<OrderItemEntity> items;
 }
